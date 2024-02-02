@@ -7,3 +7,4 @@ import { make2dArray } from './utils'
 
 let grid = make2dArray(10, 10)
 console.table(grid)
+
