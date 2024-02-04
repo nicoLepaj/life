@@ -1,15 +1,8 @@
 import { Binary } from '../types/binary'
 import { Position } from '../types/position'
 
-export function make2dArray<T>(cols: number, rows: number, fillMethod: () => T): T[][] {
-  let arr = new Array(cols)
-  for (let i = 0; i < cols; i++) {
-    arr[i] = new Array(rows)
-    for (let j = 0; j < rows; j++) {
-      arr[i][j] = fillMethod()
-    }
-  }
-  return arr
+export function make2dArray<T>(columns: number, rows: number, fillMethod: () => T): T[][] {
+  return Array.from({ length: columns }, () => Array.from({ length: rows }, fillMethod))
 }
 
 export function randomBinary(): Binary {
