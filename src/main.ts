@@ -15,8 +15,9 @@ function draw() {
 
   iterateGrid(rows, columns, (position) => {
     const cell = grid.getCellByPosition(position)
-    canvas.paintCell(cell.isOn, position)
+    // console.log(position, cell.state)
+    canvas.paintCell(cell, position)
   })
 }
 
-// TODO Remove config usage from classes ? If yes, would only be used in main.ts when instantianting classes or calling methods, as destructured params
+grid.step()

@@ -16,3 +16,7 @@ export function iterateGrid(rows: number, cols: number, action: (position: Posit
     }
   }
 }
+
+export function clone<T>(item: T): T {
+  return JSON.parse(JSON.stringify(item))
+}

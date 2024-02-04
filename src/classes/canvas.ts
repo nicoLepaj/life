@@ -1,5 +1,6 @@
 import { config } from '../config'
 import { Position } from '../types/position'
+import { Cell } from './cell'
 
 export class Canvas {
   private _ctx: CanvasRenderingContext2D
@@ -17,11 +18,11 @@ export class Canvas {
     return this._ctx
   }
 
-  paintCell(isCellOn: boolean, cellPosition: Position) {
+  paintCell(cell: Cell, cellPosition: Position) {
     const { x, y } = cellPosition
     const { cellColorOn, cellColorOff, cellSize, borderColor, borderThickness } = config
 
-    this._ctx.fillStyle = isCellOn ? cellColorOn : cellColorOff
+    this._ctx.fillStyle = cell.isOn ? cellColorOn : cellColorOff
     this._ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize)
 
     // Add the border to the cell
