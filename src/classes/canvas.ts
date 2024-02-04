@@ -4,7 +4,8 @@ import { Position } from '../types/position'
 export class Canvas {
   private _ctx: CanvasRenderingContext2D
 
-  constructor(id: string, columns: number, rows: number, cellSize: number) {
+  constructor(id: string) {
+    const { columns, rows, cellSize } = config
     const canvasEl = document.getElementById(id) as HTMLCanvasElement
     canvasEl.width = columns * cellSize
     canvasEl.height = rows * cellSize

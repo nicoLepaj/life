@@ -9,7 +9,7 @@ import { iterateGrid, make2dArray, randomBinary } from './utils'
 const { canvasId, columns, rows, cellSize } = config
 
 const cellGrid = make2dArray(columns, rows, () => new Cell(randomBinary()))
-const canvas = new Canvas(canvasId, columns, rows, cellSize)
+const canvas = new Canvas(canvasId)
 
 window.requestAnimationFrame(draw)
 
@@ -21,4 +21,6 @@ function draw() {
     canvas.paintCell(isCellOn, position)
   })
 }
+
+// TODO Remove config usage from classes ? If yes, would only be used in main.ts when instantianting classes or calling methods, as destructured params
 
