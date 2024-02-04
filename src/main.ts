@@ -1,31 +1,26 @@
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <canvas id="canvas" />
 `
-import { Plane } from './classes/plane'
-import { iterateGrid } from './utils'
+import { Canvas } from './classes/canvas'
+import { config } from './config'
+import { iterateGrid, make2dArray, randomBinary } from './utils'
 
-const cellSize = 20
-const cols = 10
-const rows = 6
+const { canvasId, columns, rows, cellSize } = config
 
-const canvas = document.getElementById('canvas') as HTMLCanvasElement
-canvas.width = cols * cellSize
-canvas.height = rows * cellSize
-
-const plane = new Plane(cols, rows)
+const cellGrid = make2dArray(columns, rows, randomBinary)
+const canvas = new Canvas(canvasId, columns, rows, cellSize)
 
 window.requestAnimationFrame(draw)
 
 function draw() {
-  const ctx = canvas.getContext('2d') as CanvasRenderingContext2D
-  ctx.clearRect(0, 0, cols * cellSize, rows * cellSize)
+  canvas.ctx.clearRect(0, 0, columns * cellSize, rows * cellSize)
 
-  iterateGrid(rows, cols, (position) => {
+  iterateGrid(rows, columns, (position) => {
     const { x, y } = position
-    ctx.strokeRect(x * cellSize, y * cellSize, cellSize, cellSize)
-    const isCellOn = plane.grid[x][y] === 1
+    canvas.ctx.strokeRect(x * cellSize, y * cellSize, cellSize, cellSize)
+    const isCellOn = cellGrid[x][y] === 1
     if (isCellOn) {
-      ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize)
+      canvas.ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize)
     }
   })
 }
