@@ -7,5 +7,9 @@ export const config = {
   cellSize: 20,
   columns: 20,
   rows: 20,
-  refreshInterval: 150
+  refreshInterval: 150,
+  buttons: {
+    startStop: 'Enter',
+    step: 'Digit1'
+  }
 }

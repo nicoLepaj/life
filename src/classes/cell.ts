@@ -59,6 +59,10 @@ export class Cell {
     ]
   }
 
+  reverseState() {
+    this._state = this.isOn ? 0 : 1
+  }
+
   get state() {
     return this._state
   }

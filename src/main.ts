@@ -6,16 +6,25 @@ import { iterateGrid, randomBinary } from './utils'
 
 const { canvasId, columns, rows, cellSize } = config
 
-const grid = new Grid(columns, rows, randomBinary)
-const canvas = new Canvas(canvasId)
+let grid: Grid
+// const grid = new Grid(columns, rows, randomBinary)
+
 let interval: number | null
-// window.requestAnimationFrame(draw)
+initRandomGrid()
+const canvas = new Canvas(canvasId, grid)
+iterateGrid(rows, columns, (position) => {
+  canvas.drawBorders(position)
+})
 
 function runLife() {
-  interval = setInterval(draw, config.refreshInterval)
+  interval = setInterval(stepLife, config.refreshInterval)
 }
 
-function draw() {
+function initRandomGrid() {
+  grid = new Grid(columns, rows, randomBinary)
+}
+
+function stepLife() {
   canvas.ctx.clearRect(0, 0, columns * cellSize, rows * cellSize)
 
   iterateGrid(rows, columns, (position) => {
@@ -35,17 +44,24 @@ function draw() {
     const cell = grid.getCellByPosition(grid.copy, position)
     grid.setCellByPosition(grid.original, cell, position)
   })
-  // window.requestAnimationFrame((t) => draw(t))
 }
 
 document.addEventListener('keyup', (event) => {
   switch (event.code) {
-    case 'Enter':
+    case config.buttons.startStop:
       if (!interval) {
         runLife()
       } else {
         clearInterval(interval)
         interval = null
+      }
+      break
+    case config.buttons.step:
+      if (interval) {
+        clearInterval(interval)
+        interval = null
+      } else {
+        stepLife()
       }
   }
 })
