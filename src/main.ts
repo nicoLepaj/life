@@ -8,6 +8,7 @@ const { canvasId, columns, rows, cellSize } = config
 
 const grid = new Grid(columns, rows, randomBinary)
 const canvas = new Canvas(canvasId)
+const interval = setInterval(draw, config.refreshInterval)
 // window.requestAnimationFrame(draw)
 
 function draw() {
@@ -34,6 +35,3 @@ function draw() {
   // window.requestAnimationFrame((t) => draw(t))
 }
 
-document.addEventListener('click', () => {
-  draw()
-})
