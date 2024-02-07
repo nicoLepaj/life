@@ -2,14 +2,18 @@ import { Canvas } from './classes/canvas'
 import { Cell } from './classes/cell'
 import { Grid } from './classes/grid'
 import { config } from './config'
-import { clone, iterateGrid, randomBinary } from './utils'
+import { iterateGrid, randomBinary } from './utils'
 
 const { canvasId, columns, rows, cellSize } = config
 
 const grid = new Grid(columns, rows, randomBinary)
 const canvas = new Canvas(canvasId)
-const interval = setInterval(draw, config.refreshInterval)
+let interval: number | null
 // window.requestAnimationFrame(draw)
+
+function runLife() {
+  interval = setInterval(draw, config.refreshInterval)
+}
 
 function draw() {
   canvas.ctx.clearRect(0, 0, columns * cellSize, rows * cellSize)
@@ -31,7 +35,18 @@ function draw() {
     const cell = grid.getCellByPosition(grid.copy, position)
     grid.setCellByPosition(grid.original, cell, position)
   })
-
   // window.requestAnimationFrame((t) => draw(t))
 }
+
+document.addEventListener('keyup', (event) => {
+  switch (event.code) {
+    case 'Enter':
+      if (!interval) {
+        runLife()
+      } else {
+        clearInterval(interval)
+        interval = null
+      }
+  }
+})
 
