@@ -14,7 +14,7 @@ export class Cell {
     const neighborCoords = this.getNeighborCoords(position)
 
     for (const coords of neighborCoords) {
-      const neighbor = grid.getCellByPosition({ x: coords.x, y: coords.y })
+      const neighbor = grid.getCellByPosition(grid.original, { x: coords.x, y: coords.y })
       if (neighbor !== undefined && neighbor.isOn) {
         this._activeNeighbors.push(neighbor)
       }

@@ -5,6 +5,6 @@ export const config = {
   cellColorOff: 'white',
   cellColorOn: 'black',
   cellSize: 20,
-  columns: 4,
+  columns: 6,
   rows: 4
 }

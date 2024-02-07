@@ -4,6 +4,7 @@ import { Cell } from './cell'
 
 export class Canvas {
   private _ctx: CanvasRenderingContext2D
+  private _contextId: string = '2d'
 
   constructor(id: string) {
     const { columns, rows, cellSize } = config
@@ -11,7 +12,7 @@ export class Canvas {
     canvasEl.width = columns * cellSize
     canvasEl.height = rows * cellSize
 
-    this._ctx = canvasEl.getContext('2d') as CanvasRenderingContext2D
+    this._ctx = canvasEl.getContext(this._contextId) as CanvasRenderingContext2D
   }
 
   get ctx() {
