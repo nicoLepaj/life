@@ -10,6 +10,7 @@ export const config = {
   refreshInterval: 150,
   buttons: {
     startStop: 'Enter',
-    step: 'Digit1'
+    step: 'Digit1',
+    clear: 'Digit2'
   }
 }

@@ -49,20 +49,29 @@ function stepLife() {
 document.addEventListener('keyup', (event) => {
   switch (event.code) {
     case config.buttons.startStop:
-      if (!interval) {
+      if (!intervalId) {
         runLife()
       } else {
-        clearInterval(interval)
-        interval = null
+        clearInterval(intervalId)
+        intervalId = null
       }
       break
+
     case config.buttons.step:
-      if (interval) {
-        clearInterval(interval)
-        interval = null
+      if (intervalId) {
+        clearInterval(intervalId)
+        intervalId = null
       } else {
         stepLife()
       }
+      break
+
+    case config.buttons.clear:
+      if (intervalId) {
+        clearInterval(intervalId)
+        intervalId = null
+      }
+
+      clearLife()
   }
 })
-
