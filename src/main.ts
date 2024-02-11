@@ -1,33 +1,28 @@
 import { Canvas } from './classes/canvas'
 import { Cell } from './classes/cell'
-import { Grid } from './classes/grid'
 import { config } from './config'
-import { iterateGrid, randomBinary } from './utils'
+import { GridType } from './enums/gridType'
+import { initGrid, iterateGrid } from './utils'
 
 const { canvasId, columns, rows, cellSize } = config
 
-let grid: Grid
-// const grid = new Grid(columns, rows, randomBinary)
+let intervalId: number | null
 
-let interval: number | null
-initRandomGrid()
+let grid = initGrid(GridType.RANDOM)
+
 const canvas = new Canvas(canvasId, grid)
-iterateGrid(rows, columns, (position) => {
+iterateGrid((position) => {
   canvas.drawBorders(position)
 })
 
 function runLife() {
-  interval = setInterval(stepLife, config.refreshInterval)
-}
-
-function initRandomGrid() {
-  grid = new Grid(columns, rows, randomBinary)
+  intervalId = setInterval(stepLife, config.refreshInterval)
 }
 
 function stepLife() {
   canvas.ctx.clearRect(0, 0, columns * cellSize, rows * cellSize)
 
-  iterateGrid(rows, columns, (position) => {
+  iterateGrid((position) => {
     const cell = grid.getCellByPosition(grid.original, position)
 
     // Draw cell
@@ -40,10 +35,15 @@ function stepLife() {
   })
 
   // Second iteration to copy the cells from the copied grid to the original grid, to get the grid for the next painting step
-  iterateGrid(rows, columns, (position) => {
+  iterateGrid((position) => {
     const cell = grid.getCellByPosition(grid.copy, position)
     grid.setCellByPosition(grid.original, cell, position)
   })
+}
+
+function clearLife() {
+  grid = initGrid(GridType.ALL_DEAD)
+  stepLife()
 }
 
 document.addEventListener('keyup', (event) => {
@@ -71,7 +71,7 @@ document.addEventListener('keyup', (event) => {
         clearInterval(intervalId)
         intervalId = null
       }
-
       clearLife()
+      break
   }
 })

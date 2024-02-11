@@ -1,4 +1,3 @@
-import { config } from '../config'
 import { Binary } from '../types/binary'
 import { Position } from '../types/position'
 import { clone, iterateGrid, make2dArray } from '../utils'
@@ -14,11 +13,10 @@ export class Grid {
   }
 
   step() {
-    const { rows, columns } = config
     this._gridCopy = clone(this._grid)
 
     // iterate the grid
-    iterateGrid(rows, columns, (position) => {
+    iterateGrid((position) => {
       // set cell's active neighbors
       const cell = this.getCellByPosition(this.original, position)
       cell.setActiveNeighbors(this, position)

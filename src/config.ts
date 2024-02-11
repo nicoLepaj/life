@@ -5,8 +5,8 @@ export const config = {
   cellColorOff: 'white',
   cellColorOn: 'black',
   cellSize: 20,
-  columns: 20,
-  rows: 20,
+  columns: 4,
+  rows: 4,
   refreshInterval: 150,
   buttons: {
     startStop: 'Enter',
